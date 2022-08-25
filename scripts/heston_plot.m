@@ -164,7 +164,7 @@ N0 = 3000;    % initial number of samples on coarsest levels
 for i=1:length(Eps)
     eps = Eps(i);
     
-    % Determine the final levels (L's)
+    % Determine the finest levels (L's)
     L_ = [level_check(@na_milstein_l,eps,N_test,1,Lmax,2)  ...
                        level_check(@nv_all,eps,N_test,2,Lmax) ...
                        level_check(@new_all_a,eps,N_test,2,Lmax,'Call',2)];
