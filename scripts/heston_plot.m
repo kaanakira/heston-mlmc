@@ -1,3 +1,5 @@
+% This code is adapted from https://people.maths.ox.ac.uk/~gilesm/mlmc/matlab/mlmc_test.m
+
 close all; clear all;
 
 Lmin  = 3;      % minimum refinement level
