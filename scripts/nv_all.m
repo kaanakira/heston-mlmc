@@ -1,6 +1,7 @@
 %function [sums, cost] = nv_all(l,N)
 %
 % function for level l estimator using Ninomiya-Victoir method
+% used for last level check L^{NV}
 %
 % inputs:  l = level
 %          N = number of paths to be generated
