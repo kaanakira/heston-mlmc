@@ -60,7 +60,6 @@ loglog(  Eps, real_err(2,:), 'o-.', Eps, real_err(1,:), 's--',[0.0001 Eps 0.02],
 legend('$\bar Y_{ML}^{NV}$', '$\bar Y_{ML}^{new}$','Interpreter','latex','fontsize',13);
 xlabel('$\epsilon$','Interpreter','latex','fontsize',15); 
 ylabel('$\bar{E}(N_\ell^{new}(\epsilon))$','Interpreter','latex','fontsize',14);
-current = axis; 
 
 savefig('error.fig')
   
