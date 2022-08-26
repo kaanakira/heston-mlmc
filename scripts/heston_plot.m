@@ -159,7 +159,7 @@ Nl_a = zeros(Lmax+1,length(Eps));
 theta = 0.25;
 
 N_test = 500000; % number of samples to determine L
-N0 = 3000;    % initial number of samples on coarsest levels
+N0 = 3000;    % initial number of samples on all levels
 
 for i=1:length(Eps)
     eps = Eps(i);
