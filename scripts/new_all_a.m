@@ -156,42 +156,30 @@ for N1 = 1:10000:N
   
   if  strcmp(typ,'call')
       Pf  = exp(-r*T)*max(0,exp(uf)-K);
-
-      if option == 2
-        Pf = 0.5*(Pf(1:N2)+Pf(N2+1:end));
-      else 
-        Pf = Pf(1:N2);
-      end
-
       Pc  = exp(-r*T)*max(0,exp(uc)-K);
-
-      if l>0 && option == 2
-        Pc = 0.5*(Pc(1:N2)+Pc(N2+1:end));
-      elseif l==0
-          Pc = 0;
-      elseif l>0 && option == 1
-          Pc = Pc(1:N2);
-      end
   elseif strcmp(typ,'s')
       Pf  = exp(uf);
-      
-      if option == 2
-          Pf = 0.5*(Pf(1:N2)+Pf(N2+1:end));
-      else
-          Pf = Pf(1:N2);
-      end
-      
       Pc  = exp(uc);
-      
-      if l>0 && option == 2
-          Pc = 0.5*(Pc(1:N2)+Pc(N2+1:end));
-      elseif l==0
-          Pc = 0;
-      elseif l>0 && option == 1
-          Pc = Pc(1:N2);
-      end
   else
       disp('error: needs typ = Call or S');
+  end
+  
+  if option == 2
+      Pf = 0.5*(Pf(1:N2)+Pf(N2+1:end));
+      if l>0
+        Pc = 0.5*(Pc(1:N2)+Pc(N2+1:end));
+      else
+        Pc = 0;
+      end
+  elseif option == 1
+      Pf = Pf(1:N2);
+      if l>0
+        Pc = Pc(1:N2);
+      else
+        Pc = 0;
+      end
+  else
+      disp('error: needs option = 1 or 2');
   end
 
   
