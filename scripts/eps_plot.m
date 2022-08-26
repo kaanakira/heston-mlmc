@@ -22,7 +22,7 @@ Nl_(1:length(Eps),1:Lmax+1) = 0;
 
 for i=1:length(Eps)
     eps = Eps(i);
-    real_av(1:n) = 0; 
+    real_av(1:n) = 0; % array to store result for each simulation
     L=0;
     
     for j=1:n
@@ -31,12 +31,14 @@ for i=1:length(Eps)
             L = level_check(@new_all_a,eps,N_test,2,Lmax,'Call',2);
         end
         
+        % MLMC estimation
         [P, Nl, C] = mlmc_a(N0,eps,L,@new_l,@new_La,2);
         
+        % Compute emprirical error
         real_av(j) = abs(P-y);
     end    
     Nl_(i,:)=[Nl zeros(1, Lmax+1 - length(Nl))]';
-    real_err(i) = sum(real_av)/n;    
+    real_err(i) = sum(real_av)/n;    % take the average
 end
 
 
