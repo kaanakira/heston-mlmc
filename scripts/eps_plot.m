@@ -2,7 +2,7 @@ close all; clear all;
 
 Eps = [ 0.0003 0.0005 0.00075 0.001 0.005 0.01 ]; % Desired accuracies
 
-N_test = 100000; % Number of paths for the level check
+N_test = 200000; % Number of paths for the level check
 N0 = 3000; % Number of initial samples on each level for MLMC
 
 Lmin=5;
@@ -17,12 +17,15 @@ n=5; % Number of samples to use for the average of error
 % Compute the theoretical value of the call option
 y = call_heston_cf(20, 2, 0.9,0.5, 0.05, 0.05, 0, 1, 20);
 
-real_err(1:length(Eps)) = 0;
+%
+% Initialisation
+%
+real_err(1:2,1:length(Eps)) = 0;
 Nl_(1:length(Eps),1:Lmax+1) = 0;
 
 for i=1:length(Eps)
     eps = Eps(i);
-    real_av(1:n) = 0; % array to store result for each simulation
+    real_av(1:2,1:n) = 0; % array to store result for each simulation
     L=0;
     
     for j=1:n
@@ -33,19 +36,30 @@ for i=1:length(Eps)
         
         % MLMC estimation
         [P, Nl, C] = mlmc_a(N0,eps,L,@new_l,@new_La,2);
+        [P_nv, ~]  = nv_mlmc(Nl);
         
         % Compute emprirical error
-        real_av(j) = abs(P-y);
+        real_av(1,j) = abs(P-y);
+        real_av(2,j) = abs(P_nv-y);
     end    
     Nl_(i,:)=[Nl zeros(1, Lmax+1 - length(Nl))]';
-    real_err(i) = sum(real_av)/n;    % take the average
+    
+    % Compute average
+    real_err(1,i) = sum(real_av(1,:))/n;   
+    real_err(2,i) = sum(real_av(2,:))/n;   
 end
+
+% Best fit for the new estimator error
+pa    = polyfit(Eps, real_err(1,:),1); 
+xFit = linspace(min(Eps), max(Eps), 1000);
+yFit = polyval(pa , xFit);
 
 
 set(0,'DefaultAxesColorOrder',[0 0 0]);
-loglog([0.0001 Eps 0.02], [0.0001 Eps 0.02], ':',  Eps, real_err, 'o-')
-xlabel('accuracy $\epsilon$','Interpreter','latex'); 
-ylabel('$\bar{E}_{new}$','Interpreter','latex');
+loglog(  Eps, real_err(2,:), 'o-.', Eps, real_err(1,:), 's--',[0.0001 Eps 0.02], [0.0001 Eps 0.02], ':', xFit, yFit, '-')
+legend('$\bar Y_{ML}^{NV}$', '$\bar Y_{ML}^{new}$','Interpreter','latex','fontsize',13);
+xlabel('$\epsilon$','Interpreter','latex','fontsize',15); 
+ylabel('$\bar{E}(N_\ell^{new}(\epsilon))$','Interpreter','latex','fontsize',14);
 current = axis; 
 
 savefig('error.fig')
