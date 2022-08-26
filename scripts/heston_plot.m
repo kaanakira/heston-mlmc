@@ -21,7 +21,6 @@ del1 = [];
 del2 = [];
 var1 = [];
 var2 = [];
-cost = [];
 
 var1_m = [];
 del1_m = [];
@@ -39,22 +38,18 @@ for l = 0:L
     RandStream.create('mrg32k3a','NumStreams',100,'StreamIndices',j));
 
     if l<L
-        [sums_j_m, cst_j_m] = na_milstein_l(l, N/100, 2);
-        [sums_j, cst_j] = new_l(l, N/100, 2);
+        [sums_j_m, ~] = na_milstein_l(l, N/100, 2);
+        [sums_j, ~] = new_l(l, N/100, 2);
     else
-        [sums_j_m, cst_j_m] = na_milstein_l(l, N/100, 2);
-        [sums_j, cst_j] = new_La(l, N/100);
+        [sums_j_m, ~] = na_milstein_l(l, N/100, 2);
+        [sums_j, ~] = new_La(l, N/100);
     end
     
-    sums = sums + sums_j/N;
-    cst  = cst  + cst_j/N;
-    
+    sums = sums + sums_j/N;    
     sums_m = sums_m + sums_j_m/N;
     
   end  
 
-
-  cost = [cost cst(1)];
   del1 = [del1 sums(1)];
   del2 = [del2 sums(5)];
   var1 = [var1 sums(2)-sums(1)^2 ];
