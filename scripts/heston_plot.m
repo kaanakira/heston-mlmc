@@ -24,7 +24,6 @@ var2 = [];
 
 var1_m = [];
 del1_m = [];
-del2_m = [];
 
 N =2000000; % Number of paths for each level for the convergence test
 
@@ -57,7 +56,6 @@ for l = 0:L
   var2 = max(var2, 1e-10);
   
   del1_m = [del1_m sums_m(1)];
-  del2_m = [del2_m sums_m(5)];
   var1_m = [var1_m sums_m(2)-sums_m(1)^2 ];
   
 end
