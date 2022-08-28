@@ -5,7 +5,7 @@ close all; clear all;
 Lmin  = 3;      % minimum refinement level
 Lmax  = 15;     % maximum refinement level
 
-L = 7; % number of levels to observe for the convergences of mean and variance
+L = 7; % number of levels to observe for the convergence test
 
 Eps   = [ 0.0001 0.0003 0.0005 0.00075 0.001 0.005]; % desired accuracies 
 
