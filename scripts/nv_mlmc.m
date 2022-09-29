@@ -1,7 +1,7 @@
 % function [P, Cl] = nv_mlmc(Nl)
 %
-% multi-level Monte Carlo estimation using L = length(Nl)-1 and corresponding
-% number of samples Nl(l+1) for each level l = 0,1,...,L.
+% multi-level Monte Carlo estimation (no-area Milstein + Ninomiya-Victoir)
+% using L = length(Nl)-1 and corresponding number of samples Nl(l+1) for each level l = 0,1,...,L.
 %
 % P     = value
 % Cl    = complexity
